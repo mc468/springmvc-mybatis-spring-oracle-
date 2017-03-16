@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">    
+<!--     
+    namespace：必须与对应的接口全类名一致  UserMapper.java  
+    id ：必须与对应接口的某个对应的方法名一致即必须要和UserMapper.java接口中的方法同名。  
+ -->    
+ <mapper namespace="com.ming.mapper.UserMapper">
+ 	<insert id="addUser" parameterType="User">
+ 		insert into mobile_user
+ 					values
+ 					(
+ 						s_mobileUser.nextVal,#{phoneNum},#{gender},#{age},#{identityCard},#{photoUrl},
+ 						#{duty},to_date(#{regTime},'yyyy-MM-dd'),#{note})
+ 		
+ 	</insert>
+ 	<delete id="deleteUser" parameterType="String">
+ 		delete from mobile_user where user_id=#{userId}
+ 	</delete>
+ 	<select id="findById" parameterType="String" resultType="User">
+ 		select user_id as userId,phone_num as phoneNum,gender,age,identity_card as identityCard,
+		photo_url as photoUrl,duty,reg_time as regTime,note
+		from mobile_user
+ 		where user_id=#{userId}
+ 	</select>
+ 	<select id="findAll" resultType="User">
+		select user_id as userId,phone_num as phoneNum,gender,age,identity_card as identityCard,
+		photo_url as photoUrl,duty,reg_time as regTime,note
+		from mobile_user order by userId
+ 	</select>
+ 	<update id="modifyUser" parameterType="User">
+ 		update mobile_user
+ 		set phone_num=#{phoneNum},gender=#{gender},age=#{age},identity_card=#{identityCard},
+ 			photo_url=#{photoUrl},duty=#{duty},reg_time=to_date(#{regTime},'yyyy-MM-dd'),note=#{note}
+ 		where user_id=#{userId}
+ 	</update>
+ </mapper>

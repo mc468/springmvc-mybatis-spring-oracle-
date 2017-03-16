@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">    
+   
+ <mapper namespace="com.ming.mapper.AccountMapper">
+
+ <select id="findAccountById" parameterType="String" resultType="Account">
+ select user_acct_code as userAcctCode, user_id as userId, yyyyMM, suit_fee as suitFee, talk_fee as talkFee, 
+ 		roaming_fee as roamingFee, i_long_fee as iLongFee, i_roaming_fee as iRoamingFee, total, 
+ 		payed_flag as payedFlag, pay_time as payTime
+ from user_acct
+ where user_id=#{userId}
+ </select>
+ <update id="payAccount" parameterType="String">
+ update user_acct
+ set payed_flag=1, pay_time=sysdate
+ where user_acct_code=#{userAcctCode}
+ </update>
+ </mapper>
